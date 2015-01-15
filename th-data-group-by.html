@@ -63,12 +63,14 @@ A Thelma component providing solution to no problem in particular.
        */
       included: false,
       _numericFunctions: [  
+              {label:'max', name: 'Max'},
+              {label:'min', name: 'Min'},
               {label:'sum', name: 'Sum'},
               {label:'avg', name: 'Average'},
+              /*
               {label:'stddev', name: 'Standard Deviation'},
-              {label:'variance', name: 'Variance'},
-              {label:'max', name: 'Max'},
-              {label:'min', name: 'Min'}
+              {label:'variance', name: 'Variance'}
+              */
             ],
 
       _numericColumns: [],
@@ -90,29 +92,28 @@ A Thelma component providing solution to no problem in particular.
         }
         if(self.groupByCol && self.groupByCol!=='none') {
           if(!self.selectedFunc || self.selectedFunc==='frequency') {
-            self.output = _.countBy(self.input, self.groupByCol);
+            var temp = _.countBy(self.input, self.groupByCol);
+            var keys = Object.keys(temp);
+            self.output = _.map(keys, function(key) {
+              return {
+                label: key,
+                value: temp[key]
+              }
+            })
           }
           else {
             var temp = _.groupBy(self.input, self.groupByCol);
             var aggrFunction = self.$.data_utility.aggregateFunctions[self.selectedFunc];
-            console.log(temp, aggrFunction);
             self.output = _.map(temp,function(value, key) {
-              console.log(key);
               //var ret = {};
               //ret[key] = aggrFunction(value, self.funcCol)
               ret = {label: key, value : aggrFunction(value, self.funcCol)}
               return ret;
             });
 
-            console.log(self.output)
-
-
 
           }
 
-          console.log(self.output);
-
-          //this.output = tmp;
         }
 
 
@@ -144,9 +145,7 @@ A Thelma component providing solution to no problem in particular.
           self._dataAttributes.forEach(function(key, index) {
             var isNum = self.$.data_utility.isColumnNumeric(self.input, key);
             self._numericColumns[index] = isNum;
-            console.log(key, isNum);
           });
-          console.log(self._numericColumns);
 
       },
  
