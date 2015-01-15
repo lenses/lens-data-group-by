@@ -4,8 +4,9 @@
   "keywords": "thelma, polymer, web-components",
   "main": "th-data-group-by.html",
   "dependencies": {
-    "th-theme": "thelmanews/th-theme",
     "polymer": "Polymer/polymer#~0.5.1",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "th-data-utility": "thelmanews/th-data-utility",
+    "numeral": "~1.5.3"
   }
 }
