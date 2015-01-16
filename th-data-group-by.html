@@ -53,6 +53,12 @@ A Thelma component providing solution to no problem in particular.
                   </template>
               </template>
             </core-selector>
+            <label for="sort_selector">Sort:</label>
+            <core-selector id="func_selector" id="" selected="{{selectedSort}}" valueattr="label">
+                <div class="col" label="none">None</div>
+                <div class="col" label="asc">Ascending</div>
+                <div class="col" label="desc">Descending</div>
+            </core-selector>
       </core-collapse>  
     </template>
   <script>
@@ -74,6 +80,9 @@ A Thelma component providing solution to no problem in particular.
             ],
 
       _numericColumns: [],
+      selectedFunc: 'frequency',
+
+      selectedSort: 'none',
       
 
       ready: function () {
@@ -113,6 +122,12 @@ A Thelma component providing solution to no problem in particular.
 
 
           }
+          if(self.selectedSort!=='none') {
+            self.output = _.sortBy(self.output, 'value');
+            if(self.selectedSort==='desc') {
+              self.output.reverse();
+            }
+          }
 
         }
 
@@ -150,6 +165,10 @@ A Thelma component providing solution to no problem in particular.
       },
  
       selectedFuncChanged: function() {
+        this._calculateOutput();
+      },
+      selectedSortChanged: function() {
+        //or just sort?
         this._calculateOutput();
       },
       groupByColChanged: function() {
