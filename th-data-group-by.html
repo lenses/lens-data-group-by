@@ -162,7 +162,8 @@ A Thelma component providing solution to no problem in particular.
           var self = this;
           self._dataAttributes.forEach(function(key, index) {
             var isNum = self.$.data_utility.isColumnNumeric(self.input, key);
-            self._numericColumns[index] = isNum;
+            //TODO fix bugs related to isColumnNumeric and put back the check.
+            self._numericColumns[index] = true;//isNum;
           });
 
       },
