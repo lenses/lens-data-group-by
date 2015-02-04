@@ -14,7 +14,7 @@ A Thelma component providing solution to no problem in particular.
 @homepage http://sepans.github.io/th-data-group-by
 -->
 
-<polymer-element name="th-data-group-by" attributes="input output included ">
+<polymer-element name="th-data-group-by" attributes="input output included groupByColumn aggrFunction aggrFuncOnColumn sortValues">
   <template>
 
     <th-data-utility id="data_utility"></th-data-utility>
@@ -29,13 +29,13 @@ A Thelma component providing solution to no problem in particular.
 
             <p class="info">Group same values of a column together and apply function on others</p>
             <label for="func_selector">Group by column:</label>
-            <core-selector id="value_selector" selected="{{groupByCol}}" valueattr="label">
+            <core-selector id="value_selector" selected="{{groupByColumn}}" valueattr="label">
               <template repeat="{{attr in _dataAttributes}}">
                 <div class="col" label="{{attr}}">{{attr}}</div>
               </template>
             </core-selector>
             <label for="func_selector">Apply function:</label>
-            <core-selector id="func_selector" id="" selected="{{selectedFunc}}" valueattr="label">
+            <core-selector id="func_selector" id="" selected="{{aggrFunction}}" valueattr="label">
                       <div class="col" label="frequency">Frequency</div>
                   <!--<template if="{{_whereColumnNumeric}}">-->
                     <template repeat="{{func in _numericFunctions}}">
@@ -44,17 +44,17 @@ A Thelma component providing solution to no problem in particular.
                   <!--</template>-->
             </core-selector>
             <label for="func_selector">On column:</label>
-            <core-selector id="value_selector" selected="{{funcCol}}" valueattr="label">
+            <core-selector id="value_selector" selected="{{aggrFuncOnColumn}}" valueattr="label">
               <template repeat="{{attr, attrIndex in _dataAttributes}}">
                   <template if="{{_numericColumns[attrIndex]}}">
-                    <template if="{{attr!==groupByCol}}">
+                    <template if="{{attr!==groupByColumn}}">
                       <div class="col" label="{{attr}}">{{attr}}</div>
                     </template>
                   </template>
               </template>
             </core-selector>
             <label for="sort_selector">Sort:</label>
-            <core-selector id="func_selector" id="" selected="{{selectedSort}}" valueattr="label">
+            <core-selector id="func_selector" id="" selected="{{sortValues}}" valueattr="label">
                 <div class="col" label="none">None</div>
                 <div class="col" label="asc">Ascending</div>
                 <div class="col" label="desc">Descending</div>
@@ -83,9 +83,9 @@ A Thelma component providing solution to no problem in particular.
             ],
 
       _numericColumns: [],
-      selectedFunc: 'frequency',
+      aggrFunction: 'frequency',
 
-      selectedSort: 'none',
+      sortValues: 'none',
       
 
       ready: function () {
@@ -102,9 +102,9 @@ A Thelma component providing solution to no problem in particular.
         if(this.included) {
           return;
         }
-        if(self.groupByCol && self.groupByCol!=='none') {
-          if(!self.selectedFunc || self.selectedFunc==='frequency') {
-            var temp = _.countBy(self.input, self.groupByCol);
+        if(self.groupByColumn && self.groupByColumn!=='none') {
+          if(!self.aggrFunction || self.aggrFunction==='frequency') {
+            var temp = _.countBy(self.input, self.groupByColumn);
             var keys = Object.keys(temp);
             self.output = _.map(keys, function(key) {
               return {
@@ -114,20 +114,20 @@ A Thelma component providing solution to no problem in particular.
             })
           }
           else {
-            var temp = _.groupBy(self.input, self.groupByCol);
-            var aggrFunction = self.$.data_utility.aggregateFunctions[self.selectedFunc];
+            var temp = _.groupBy(self.input, self.groupByColumn);
+            var aggrFunction = self.$.data_utility.aggregateFunctions[self.aggrFunction];
             self.output = _.map(temp,function(value, key) {
               //var ret = {};
-              //ret[key] = aggrFunction(value, self.funcCol)
-              ret = {label: key, value : aggrFunction(value, self.funcCol)}
+              //ret[key] = aggrFunction(value, self.aggrFuncOnColumn)
+              ret = {label: key, value : aggrFunction(value, self.aggrFuncOnColumn)}
               return ret;
             });
 
 
           }
-          if(self.selectedSort!=='none') {
+          if(self.sortValues!=='none') {
             self.output = _.sortBy(self.output, 'value');
-            if(self.selectedSort==='desc') {
+            if(self.sortValues==='desc') {
               self.output.reverse();
             }
           }
@@ -168,17 +168,17 @@ A Thelma component providing solution to no problem in particular.
 
       },
  
-      selectedFuncChanged: function() {
+      aggrFunctionChanged: function() {
         this._calculateOutput();
       },
-      selectedSortChanged: function() {
+      sortValuesChanged: function() {
         //or just sort?
         this._calculateOutput();
       },
-      groupByColChanged: function() {
+      groupByColumnChanged: function() {
         this._calculateOutput(); 
       },
-      funcColChanged: function() {
+      aggrFuncOnColumnChanged: function() {
         this._calculateOutput(); 
       },
       showControls: function(e) {
