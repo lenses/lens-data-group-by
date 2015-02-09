@@ -7,6 +7,9 @@
     "polymer": "Polymer/polymer#~0.5.1",
     "lodash": "~3.0.0",
     "th-data-utility": "thelmanews/th-data-utility",
+    "core-collapse": "Polymer/core-collapse",
+    "core-selector": "Polymer/core-selector",
+    "core-icon-button": "Polymer/core-icon-button",
     "numeral": "~1.5.3"
   }
 }

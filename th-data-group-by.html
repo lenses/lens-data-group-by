@@ -1,5 +1,8 @@
 <link rel="import" href="../polymer/polymer.html"> 
 <link rel="import" href="../th-data-utility/th-data-utility.html"> 
+<link rel="import" href="../core-collapse/core-collapse.html">
+<link rel="import" href="../core-selector/core-selector.html">
+<link rel="import" href="../core-icon-button/core-icon-button.html">
 
 <!--
 A Thelma component providing solution to no problem in particular.
@@ -16,50 +19,53 @@ A Thelma component providing solution to no problem in particular.
 
 <polymer-element name="th-data-group-by" attributes="input output included groupByColumn aggrFunction aggrFuncOnColumn sortValues">
   <template>
+    <div class="container">
+      <core-style ref="lenses"></core-style>
 
-    <th-data-utility id="data_utility"></th-data-utility>
+      <th-data-utility id="data_utility"></th-data-utility>
 
-    <link rel="stylesheet" href="th-data-group-by.css">
+      <link rel="stylesheet" href="th-data-group-by.css">
 
-    <template if="{{!included}}">
-      <core-icon-button icon="perm-data-setting" on-click="{{showControls}}"></core-icon-button>
-    </template>
+      <template if="{{!included}}">
+        <core-icon-button icon="perm-data-setting" on-click="{{showControls}}"></core-icon-button>
+      </template>
 
-    <core-collapse id="ctrl_collapse">      
+      <core-collapse id="ctrl_collapse">      
 
-            <p class="info">Group same values of a column together and apply function on others</p>
-            <label for="func_selector">Group by column:</label>
-            <core-selector id="value_selector" selected="{{groupByColumn}}" valueattr="label">
-              <template repeat="{{attr in _dataAttributes}}">
-                <div class="col" label="{{attr}}">{{attr}}</div>
-              </template>
-            </core-selector>
-            <label for="func_selector">Apply function:</label>
-            <core-selector id="func_selector" id="" selected="{{aggrFunction}}" valueattr="label">
-                      <div class="col" label="frequency">Frequency</div>
-                  <!--<template if="{{_whereColumnNumeric}}">-->
-                    <template repeat="{{func in _numericFunctions}}">
-                      <div class="col" label="{{func.label}}">{{func.name}}</div>
+              <p class="info">Group same values of a column together and apply function on others</p>
+              <label class="label" for="func_selector">Group by column:</label>
+              <core-selector class="selector"  id="value_selector" selected="{{groupByColumn}}" valueattr="label">
+                <template repeat="{{attr in _dataAttributes}}">
+                  <div class="col" label="{{attr}}">{{attr}}</div>
+                </template>
+              </core-selector>
+              <label class="label" for="func_selector">Apply function:</label>
+              <core-selector class="selector"  id="func_selector" id="" selected="{{aggrFunction}}" valueattr="label">
+                        <div class="col" label="frequency">Frequency</div>
+                    <!--<template if="{{_whereColumnNumeric}}">-->
+                      <template repeat="{{func in _numericFunctions}}">
+                        <div class="col" label="{{func.label}}">{{func.name}}</div>
+                      </template>
+                    <!--</template>-->
+              </core-selector>
+              <label class="label" for="func_selector">On column:</label>
+              <core-selector class="selector"  id="value_selector" selected="{{aggrFuncOnColumn}}" valueattr="label">
+                <template repeat="{{attr, attrIndex in _dataAttributes}}">
+                    <template if="{{_numericColumns[attrIndex]}}">
+                      <template if="{{attr!==groupByColumn}}">
+                        <div class="col" label="{{attr}}">{{attr}}</div>
+                      </template>
                     </template>
-                  <!--</template>-->
-            </core-selector>
-            <label for="func_selector">On column:</label>
-            <core-selector id="value_selector" selected="{{aggrFuncOnColumn}}" valueattr="label">
-              <template repeat="{{attr, attrIndex in _dataAttributes}}">
-                  <template if="{{_numericColumns[attrIndex]}}">
-                    <template if="{{attr!==groupByColumn}}">
-                      <div class="col" label="{{attr}}">{{attr}}</div>
-                    </template>
-                  </template>
-              </template>
-            </core-selector>
-            <label for="sort_selector">Sort:</label>
-            <core-selector id="func_selector" id="" selected="{{sortValues}}" valueattr="label">
-                <div class="col" label="none">None</div>
-                <div class="col" label="asc">Ascending</div>
-                <div class="col" label="desc">Descending</div>
-            </core-selector>
-      </core-collapse>  
+                </template>
+              </core-selector>
+              <label class="label" for="sort_selector">Sort:</label>
+              <core-selector class="selector"  id="func_selector" id="" selected="{{sortValues}}" valueattr="label">
+                  <div class="col" label="none">None</div>
+                  <div class="col" label="asc">Ascending</div>
+                  <div class="col" label="desc">Descending</div>
+              </core-selector>
+        </core-collapse>  
+      </div>
     </template>
 
   <script src="../lodash/lodash.js"></script>
