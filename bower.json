@@ -10,6 +10,7 @@
     "core-collapse": "Polymer/core-collapse",
     "core-selector": "Polymer/core-selector",
     "core-icon-button": "Polymer/core-icon-button",
+    "lenses-theme": "lenses/lenses-theme",
     "numeral": "~1.5.3"
   }
 }
