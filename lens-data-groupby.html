@@ -1,5 +1,5 @@
 <link rel="import" href="../polymer/polymer.html"> 
-<link rel="import" href="../th-data-utility/th-data-utility.html"> 
+<link rel="import" href="../lens-u-data-utility/lens-u-data-utility.html"> 
 <link rel="import" href="../core-collapse/core-collapse.html">
 <link rel="import" href="../core-selector/core-selector.html">
 <link rel="import" href="../core-icon-button/core-icon-button.html">
@@ -9,21 +9,21 @@ A Thelma component providing solution to no problem in particular.
 
 ##### Example
 
-    <th-data-group-by></th-data-group-by>
+    <lens-data-groupby></lens-data-groupby>
 
-@element th-data-group-by
+@element lens-data-groupby
 @blurb Element providing solution to no problem in particular.
 @status alpha
-@homepage http://sepans.github.io/th-data-group-by
+@homepage http://sepans.github.io/lens-data-groupby
 -->
 
-<polymer-element name="th-data-group-by" attributes="input output included groupByColumn aggrFunction aggrFuncOnColumn sortValues">
+<polymer-element name="lens-data-groupby" attributes="input output included groupByColumn aggrFunction aggrFuncOnColumn sortValues">
   <template>
-    <div class="th-container">
+    <div class="lens-container">
 
-      <th-data-utility id="data_utility"></th-data-utility>
+      <lens-u-data-utility id="data_utility"></lens-u-data-utility>
 
-      <link rel="stylesheet" href="th-data-group-by.css">
+      <link rel="stylesheet" href="lens-data-groupby.css">
 
       <template if="{{!included}}">
         <core-icon-button icon="perm-data-setting" on-click="{{showControls}}"></core-icon-button>

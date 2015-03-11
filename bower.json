@@ -1,12 +1,12 @@
 {
-  "name": "th-data-group-by",
+  "name": "lens-data-groupby",
   "version": "0.0.0",
   "keywords": "thelma, polymer, web-components",
-  "main": "th-data-group-by.html",
+  "main": "lens-data-groupby.html",
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5.1",
     "lodash": "~3.0.0",
-    "th-data-utility": "thelmanews/th-data-utility",
+    "lens-u-data-utility": "lenses/lens-u-data-utility",
     "core-collapse": "Polymer/core-collapse",
     "core-selector": "Polymer/core-selector",
     "core-icon-button": "Polymer/core-icon-button",
