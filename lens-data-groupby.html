@@ -4,14 +4,14 @@
 <link rel="import" href="../core-icon-button/core-icon-button.html">
 
 <!--
-A Thelma component providing solution to no problem in particular.
+A data component for grouping data by attributes and applying a function to filter the results.
 
 ##### Example
 
     <lens-data-groupby></lens-data-groupby>
 
 @element lens-data-groupby
-@blurb Element providing solution to no problem in particular.
+@blurb A data component for grouping data by attributes and applying a function to filter the results.
 @status alpha
 @homepage http://lenses.github.io/lens-data-groupby
 -->
@@ -78,8 +78,70 @@ A Thelma component providing solution to no problem in particular.
             ],
 
       _numericColumns: [],
+
+      /**
+       *  Input data
+       *
+       *  @property input
+       *  @type Array
+       *  @default [ ]
+       */
+      input: null,
+
+      /**
+       *  Output data
+       *
+       *  @property output
+       *  @type Array
+       *  @default null
+       */
+      output: null,
+
+      /**
+       *  Name of the column to group.
+       *  
+       *  @property groupByColumn
+       *  @type String
+       *  @default null
+       */
+      groupByColumn: null,
+
+      /**
+       *  Name of the function to apply on the grouped data.
+       *  Options are: 
+       *    - 'frequency' - how many times this value appeared in the column.
+       *    - 'max' - maximum value.
+       *    - 'min' - minimum value.
+       *    - 'sum' - aggregate value.
+       *    - 'avg' - average (mean).
+       *
+       *  @property aggrFunction
+       *  @type String
+       *  @default 'frequency'
+       */
       aggrFunction: 'frequency',
 
+      /**
+       *  Name of the column on which to apply the aggregate function.
+       *  
+       *  @property aggrFuncOnColumn
+       *  @type String
+       *  @default null
+       */
+      aggrFuncOnColumn: null,
+
+      /**
+       *  Results can be sorted in ascending or descending order.
+       *  
+       *  Options are: 
+       *    - 'none' - output order is the same as input order.
+       *    - 'asc' - output results in ascending order.
+       *    - 'desc' - output results in descending order.
+       *
+       *  @property sortValues
+       *  @type String
+       *  @default 'none'
+       */
       sortValues: 'none',
 
       ready: function () {
