@@ -25,38 +25,38 @@ A data component for grouping data by attributes and applying a function to filt
       <link rel="stylesheet" href="lens-data-groupby.css">
 
 
-              <p class="info">Group same values of a column together and apply function on others</p>
-              <label class="label" for="func_selector">Group by column:</label>
-              <core-selector class="selector"  id="value_selector" selected="{{groupByColumn}}" valueattr="label">
-                <template repeat="{{attr in _dataAttributes}}">
+        <p class="info">Group same values of a column together and apply function on others</p>
+        <label class="label" for="func_selector">Group by column:</label>
+        <core-selector class="selector"  id="value_selector" selected="{{groupByColumn}}" valueattr="label">
+          <template repeat="{{attr in _dataAttributes}}">
+            <div class="col" label="{{attr}}">{{attr}}</div>
+          </template>
+        </core-selector>
+        <label class="label" for="func_selector">Apply function:</label>
+        <core-selector class="selector"  id="func_selector" id="" selected="{{aggrFunction}}" valueattr="label">
+                  <div class="col" label="frequency">Frequency</div>
+              <!--<template if="{{_whereColumnNumeric}}">-->
+                <template repeat="{{func in _numericFunctions}}">
+                  <div class="col" label="{{func.label}}">{{func.name}}</div>
+                </template>
+              <!--</template>-->
+        </core-selector>
+        <label class="label" for="func_selector">On column:</label>
+        <core-selector class="selector"  id="value_selector" selected="{{aggrFuncOnColumn}}" valueattr="label">
+          <template repeat="{{attr, attrIndex in _dataAttributes}}">
+              <template if="{{_numericColumns[attrIndex]}}">
+                <template if="{{attr!==groupByColumn}}">
                   <div class="col" label="{{attr}}">{{attr}}</div>
                 </template>
-              </core-selector>
-              <label class="label" for="func_selector">Apply function:</label>
-              <core-selector class="selector"  id="func_selector" id="" selected="{{aggrFunction}}" valueattr="label">
-                        <div class="col" label="frequency">Frequency</div>
-                    <!--<template if="{{_whereColumnNumeric}}">-->
-                      <template repeat="{{func in _numericFunctions}}">
-                        <div class="col" label="{{func.label}}">{{func.name}}</div>
-                      </template>
-                    <!--</template>-->
-              </core-selector>
-              <label class="label" for="func_selector">On column:</label>
-              <core-selector class="selector"  id="value_selector" selected="{{aggrFuncOnColumn}}" valueattr="label">
-                <template repeat="{{attr, attrIndex in _dataAttributes}}">
-                    <template if="{{_numericColumns[attrIndex]}}">
-                      <template if="{{attr!==groupByColumn}}">
-                        <div class="col" label="{{attr}}">{{attr}}</div>
-                      </template>
-                    </template>
-                </template>
-              </core-selector>
-              <label class="label" for="sort_selector">Sort:</label>
-              <core-selector class="selector"  id="func_selector" id="" selected="{{sortValues}}" valueattr="label">
-                  <div class="col" label="none">None</div>
-                  <div class="col" label="asc">Ascending</div>
-                  <div class="col" label="desc">Descending</div>
-              </core-selector>
+              </template>
+          </template>
+        </core-selector>
+        <label class="label" for="sort_selector">Sort:</label>
+        <core-selector class="selector"  id="func_selector" id="" selected="{{sortValues}}" valueattr="label">
+            <div class="col" label="none">None</div>
+            <div class="col" label="asc">Ascending</div>
+            <div class="col" label="desc">Descending</div>
+        </core-selector>
 
       </div>
     </template>
@@ -83,7 +83,7 @@ A data component for grouping data by attributes and applying a function to filt
        *
        *  @property input
        *  @type Array
-       *  @default [ ]
+       *  @default null
        */
       input: null,
 
