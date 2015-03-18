@@ -8,7 +8,8 @@
     "lodash": "~3.5.0",
     "lens-u-data-utility": "lenses/lens-u-data-utility",
     "core-selector": "Polymer/core-selector#~0.5.5",
-    "core-component-page": "Polymer/core-component-page#~0.5.5"
+    "core-component-page": "Polymer/core-component-page#~0.5.5",
+    "th-theme": "thelmanews/th-theme"
   },
   "dev-dependencies":  { 
     "web-component-tester": "Polymer/web-component-tester#^2.2.6"
