@@ -16,7 +16,7 @@ A Thelma component providing solution to no problem in particular.
 @homepage http://lenses.github.io/lens-data-groupby
 -->
 
-<polymer-element name="lens-data-groupby" attributes="input output included groupByColumn aggrFunction aggrFuncOnColumn sortValues">
+<polymer-element name="lens-data-groupby" attributes="input output groupByColumn aggrFunction aggrFuncOnColumn sortValues">
   <template>
 
     <div class="lens-container lens-data">
@@ -66,11 +66,6 @@ A Thelma component providing solution to no problem in particular.
 
   <script>
     Polymer({
-      /**
-       * Included: true makes the component to be just UI. To be used in other components like th-chart-data-filter
-       * @type {Boolean}
-       */
-      included: false,
       _numericFunctions: [  
               {label:'max', name: 'Max'},
               {label:'min', name: 'Min'},
@@ -94,11 +89,6 @@ A Thelma component providing solution to no problem in particular.
       _calculateOutput: function() {
 
         var self = this;
-
-        //don't calculate anything if it is just included in another component
-        if(this.included) {
-          return;
-        }
 
         if(self.groupByColumn && self.groupByColumn!=='none') {
           if(!self.aggrFunction || self.aggrFunction==='frequency') {
