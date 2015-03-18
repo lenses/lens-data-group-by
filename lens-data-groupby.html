@@ -1,6 +1,5 @@
 <link rel="import" href="../polymer/polymer.html"> 
 <link rel="import" href="../lens-u-data-utility/lens-u-data-utility.html"> 
-<link rel="import" href="../core-collapse/core-collapse.html">
 <link rel="import" href="../core-selector/core-selector.html">
 <link rel="import" href="../core-icon-button/core-icon-button.html">
 
@@ -14,22 +13,18 @@ A Thelma component providing solution to no problem in particular.
 @element lens-data-groupby
 @blurb Element providing solution to no problem in particular.
 @status alpha
-@homepage http://sepans.github.io/lens-data-groupby
+@homepage http://lenses.github.io/lens-data-groupby
 -->
 
 <polymer-element name="lens-data-groupby" attributes="input output included groupByColumn aggrFunction aggrFuncOnColumn sortValues">
   <template>
-    <div class="lens-container">
+
+    <div class="lens-container lens-data">
 
       <lens-u-data-utility id="data_utility"></lens-u-data-utility>
 
       <link rel="stylesheet" href="lens-data-groupby.css">
 
-      <template if="{{!included}}">
-        <core-icon-button icon="perm-data-setting" on-click="{{showControls}}"></core-icon-button>
-      </template>
-
-      <core-collapse id="ctrl_collapse">      
 
               <p class="info">Group same values of a column together and apply function on others</p>
               <label class="label" for="func_selector">Group by column:</label>
@@ -63,7 +58,7 @@ A Thelma component providing solution to no problem in particular.
                   <div class="col" label="asc">Ascending</div>
                   <div class="col" label="desc">Descending</div>
               </core-selector>
-        </core-collapse>  
+
       </div>
     </template>
 
@@ -91,14 +86,11 @@ A Thelma component providing solution to no problem in particular.
       aggrFunction: 'frequency',
 
       sortValues: 'none',
-      
 
       ready: function () {
-        //open the collapse if it the component is included
-        if(this.included && !this.$.ctrl_collapse.opened) {
-          this.$.ctrl_collapse.toggle();
-        }
+
       },
+
       _calculateOutput: function() {
 
         var self = this;
@@ -107,6 +99,7 @@ A Thelma component providing solution to no problem in particular.
         if(this.included) {
           return;
         }
+
         if(self.groupByColumn && self.groupByColumn!=='none') {
           if(!self.aggrFunction || self.aggrFunction==='frequency') {
             var temp = _.countBy(self.input, self.groupByColumn);
@@ -127,8 +120,6 @@ A Thelma component providing solution to no problem in particular.
               ret = {label: key, value : aggrFunction(value, self.aggrFuncOnColumn)}
               return ret;
             });
-
-
           }
           if(self.sortValues!=='none') {
             self.output = _.sortBy(self.output, 'value');
@@ -136,11 +127,10 @@ A Thelma component providing solution to no problem in particular.
               self.output.reverse();
             }
           }
-
         }
 
-
       },
+
       inputChanged: function() {
 
           var self = this;
@@ -159,18 +149,16 @@ A Thelma component providing solution to no problem in particular.
 
           self._findNumericalColumns();
 
-          self._calculateOutput();          
+          self._calculateOutput();
+      },
 
-
-      },      
       _findNumericalColumns: function() {
-          var self = this;
-          self._dataAttributes.forEach(function(key, index) {
-            var isNum = self.$.data_utility.isColumnNumeric(self.input, key);
-            //TODO fix bugs related to isColumnNumeric and put back the check.
-            self._numericColumns[index] = true;//isNum;
-          });
-
+        var self = this;
+        self._dataAttributes.forEach(function(key, index) {
+          var isNum = self.$.data_utility.isColumnNumeric(self.input, key);
+          //TODO fix bugs related to isColumnNumeric and put back the check.
+          self._numericColumns[index] = true;//isNum;
+        });
       },
  
       aggrFunctionChanged: function() {
@@ -185,11 +173,7 @@ A Thelma component providing solution to no problem in particular.
       },
       aggrFuncOnColumnChanged: function() {
         this._calculateOutput(); 
-      },
-      showControls: function(e) {
-        this.$.ctrl_collapse.toggle();
       }
-
 
     });
   </script>
