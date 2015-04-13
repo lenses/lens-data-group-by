@@ -156,19 +156,20 @@ A data component for grouping data by attributes and applying a function to filt
             var temp = _.countBy(self.input, self.groupByColumn);
             var keys = Object.keys(temp);
             self.output = _.map(keys, function(key) {
-              return {
-                label: key,
-                value: temp[key]
-              }
+              var ret = {};
+              ret[self.groupByColumn] = key;
+              ret['Count'] = temp[key];
+              return ret;
             })
           }
-          else {
+          else if (self.aggrFunction && self.aggrFuncOnColumn) {
             var temp = _.groupBy(self.input, self.groupByColumn);
             var aggrFunction = self.$.data_utility.aggregateFunctions[self.aggrFunction];
             self.output = _.map(temp,function(value, key) {
-              //var ret = {};
-              //ret[key] = aggrFunction(value, self.aggrFuncOnColumn)
-              ret = {label: key, value : aggrFunction(value, self.aggrFuncOnColumn)}
+              ret = {};
+              ret[self.groupByColumn] = key;
+              ret[self.aggrFunction + ' of ' + self.aggrFuncOnColumn] = aggrFunction(value, self.aggrFuncOnColumn);
+
               return ret;
             });
           }
