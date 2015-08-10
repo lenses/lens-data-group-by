@@ -4,12 +4,10 @@
   "keywords": "lenses, polymer, web-components",
   "main": "lens-data-groupby.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.5",
+    "polymer": "Polymer/polymer#^1.0.0",
     "lodash": "~3.5.0",
     "lens-u-data-utility": "lenses/lens-u-data-utility",
-    "core-selector": "Polymer/core-selector#~0.5.5",
-    "core-component-page": "Polymer/core-component-page#~0.5.5",
-    "th-theme": "thelmanews/th-theme"
+    "iron-selector": "PolymerElements/iron-selector#~0.5.5",
   },
   "dev-dependencies":  { 
     "web-component-tester": "Polymer/web-component-tester#^2.2.6"
