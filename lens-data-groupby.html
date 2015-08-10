@@ -16,6 +16,7 @@ A data component for grouping data by attributes and applying a function to filt
 @blurb A data component for grouping data by attributes and applying a function to filter the results.
 @status alpha
 @homepage http://lenses.github.io/lens-data-groupby
+@demo
 -->
 
 <dom-module id="lens-data-groupby">
@@ -47,8 +48,8 @@ A data component for grouping data by attributes and applying a function to filt
         <label class="label" for="func_selector">On column:</label>
         <iron-selector class="selector" id="value_selector" selected="{{aggrFuncOnColumn}}" attr-for-selected="label">
           <template is="dom-repeat" items="{{_dataAttributes}}" as="attr" index-as="attrIndex">
-              <template is="dom-if" if="{{computeIf(_numericColumns)}}">
-                <template is="dom-if" if="{{computeIf(attr, groupByColumn)}}">
+              <template is="dom-if" if="{{computeNumericColumns(attrIndex)}}">
+                <template is="dom-if" if="{{computeAttrDoesNotEqualGroupByColumn(attr, groupByColumn)}}">
                   <div class="col" label="{{attr}}">{{attr}}</div>
                 </template>
               </template>
@@ -211,19 +212,15 @@ A data component for grouping data by attributes and applying a function to filt
       this._calculateOutput();
     },
     groupByColumnChanged: function () {
-      console.log(this.groupByColumn);
       this._calculateOutput();
     },
     aggrFuncOnColumnChanged: function () {
       this._calculateOutput();
     },
-    computeIf: function (included) {
-      return !included;
+    computeNumericColumns: function(attrIndex) {
+      return this._numericColumns[attrIndex];
     },
-    computeIf: function (_numericColumns) {
-      return _numericColumns[attrIndex];
-    },
-    computeIf: function (attr, groupByColumn) {
+    computeAttrDoesNotEqualGroupByColumn: function (attr, groupByColumn) {
       return attr !== groupByColumn;
     }
   });
