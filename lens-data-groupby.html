@@ -1,6 +1,5 @@
 <link rel="import" href="../polymer/polymer.html"> 
 <link rel="import" href="../lens-u-data-utility/lens-u-data-utility.html"> 
-<link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
@@ -134,10 +133,6 @@ A data component for grouping data by attributes and applying a function to filt
       }
     },
     ready: function () {
-      //open the collapse if it the component is included
-      if (this.included && !this.$.ctrl_collapse.opened) {
-        this.$.ctrl_collapse.toggle();
-      }
     },
     _calculateOutput: function () {
       var self = this;  //don't calculate anything if it is just included in another component
