@@ -13,7 +13,7 @@ p.info {
   padding: 1px;
   border: 1px solid #EEE;
 }
-.selector .core-selected {
+.selector .iron-selected {
   background-color: #ccc;
 
 }
